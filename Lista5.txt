@@ -1,0 +1,110 @@
+#---------
+#Zadanie 5
+from abc import ABC, abstractmethod
+
+pi = 3.14
+promien = property()
+bok1 = 4
+bok2 = 7
+
+
+class FiguraGeom(ABC):
+    @abstractmethod
+    def pole(self, bok1, bok2, promien):
+        pass
+
+    @abstractmethod
+    def obwod(self, bok1, bok2, promien):
+        pass
+
+
+class Kolo(FiguraGeom):
+    rodzaj = "Kolo"
+
+    def __init__(self, promien):
+        self.__promien = promien
+
+    @property
+    def promien_get(self):
+        return self.__promien
+
+    @promien_get.setter
+    def promien_get(self, promien):
+        print(promien, "in the setter of promien")
+        self.__promien = promien
+
+    def pole(self, promien):
+        print("\tPole kola:", pi * (promien * promien))
+
+    def obwod(self, promien):
+        print("\tObwod kola:", 2 * pi * promien)
+
+
+class Prostokat(FiguraGeom):
+    rodzaj = "Prostokat"
+
+    def __init__(self, bok1, bok2):
+        self.__bok1 = bok1
+        self.__bok2 = bok2
+
+    @property
+    def bok1_get(self):
+        return self.__bok1
+
+    @bok1_get.setter
+    def bok1_get(self, bok1):
+        print(bok1, "in the setter bok1")
+        self.__bok1 = bok1
+
+    @property
+    def bok2_get(self):
+        return self.__bok1
+
+    @bok2_get.setter
+    def bok2_get(self, bok2):
+        print(bok2, "in the setter of bok2")
+        self.__bok1 = bok2
+
+    def pole(self, bok1, bok2):
+        print("\tPole prostokata:", bok1 * bok2)
+
+    def obwod(self, bok1, bok2):
+        print("\tObwod prostokata:", 2 * bok1 + 2 * bok2)
+
+
+k = Kolo(promien)
+k.promien_get = 2
+k.pole(k.promien_get)
+k.obwod(k.promien_get)
+p = Prostokat(bok1, bok2)
+p.bok1_get = 5
+p.bok2_get = 2
+p.pole(p.bok1_get, p.bok2_get)
+p.obwod(p.bok1_get, p.bok2_get)
+
+#--------------------
+#Zadanie 2 
+
+from multipledispatch import dispatch
+
+@dispatch(int, int)
+def dodaj(a, b):
+    print(a + b)
+
+
+@dispatch(str, str)
+def dodaj(a, b):
+    print(a + " --- " + b)
+
+
+@dispatch(str, int)
+def dodaj(a, b):
+    print(a * b)
+
+#enter value for A and B here
+#|
+#V
+dodaj(2,3)
+dodaj("Jan","Ewa")
+dodaj("Jan",8)
+#-----------------
